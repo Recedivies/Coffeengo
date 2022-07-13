@@ -1,5 +1,5 @@
 <div align="center" style="padding-bottom: 20px">
-    <h1>Django + React + Postgres + Docker + Heroku template</h1>
+    <h1>Caffeengo</h1>
     <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray" alt=""/>
@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt=""/>
 </div>
 
-Coffeengo is a real time web application meant for coffee tasting, while you and your friends are rating every consumed coffee.
+Coffeengo is a real-time web application meant for coffee tasting, while you and your friends are rating every consumed coffee.
 
 Built with Django Channels, Django Rest Framework, React Typescript, Postgres, and Redis, in a Dockerized environment with an option to deploy to Heroku. Running development setup without docker-compose is also possible.
 
