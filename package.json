@@ -1,6 +1,6 @@
 {
   "name": "django-react-docker-heroku-template",
-  "version": "0.1.2",
+  "version": "0.0.0",
   "scripts": {
     "release": "standard-version"
   },

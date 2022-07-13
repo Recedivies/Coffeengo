@@ -4,19 +4,18 @@
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray" alt=""/>
     <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt=""/>
-    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
+    <img src="https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt=""/>
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Docker-008FCC?style=for-the-badge&logo=docker&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt=""/>
 </div>
 
-This repository serves as a starting point for developing a
-production-ready application using Django Rest Framework,
-React with Typescript and Postgres in a Dockerized environment
-with an option to deploy to Heroku. Running development setup
-without docker-compose is also possible.
+Coffeengo is a real time web application meant for coffee tasting, while you and your friends are rating every consumed coffee.
+
+Built with Django Channels, Django Rest Framework, React Typescript, Postgres, and Redis, in a Dockerized environment with an option to deploy to Heroku. Running development setup without docker-compose is also possible.
 
 ### Tools, libraries, frameworks:
 
@@ -25,38 +24,29 @@ This setup has been tested with Python 3.8/3.9 and Node 14.
 ### Backend
 
 - `Python 3.8/9`
-- `django`, `djangorestframework` Django + Django Rest Framework
+- `django`, `djangorestframework` - Django 4 + Django Rest Framework
+- `channels` - Django Channels 3 (handling websockets protocol)
+- `django-filter` - filter backend for drf view
 - `django-cors-headers` - handling cross origin requests
+- `channels_redis` - connection to Redis database service
 - `coverage` - for code coverage reports and running unit tests
 - `psycopg2` - needed to use Postgres (in Docker container)
 - `gunicorn` - production wsgi http server
 - `whitenoise` - building static files
 - `black`, `isort`, `flake8` - for code quality (optional)
 
-Suggested packages:
-
-- `drf-yasg` - open api documentation (swagger and redoc)
-- `django-rest-auth`, `django-allauth`, `djoser` - making auth easier
-- `django-filter` - enables filtering querysets with url parameters and more
-- `django-import-export` - import/export data from admin page
-- `django-debug-toolbar` - useful debugging tool
-
 ### Frontend
 
 - `Node 14`
 - `react` - React
 - `typescript` - Typescript
+- `react-use-websocket` - websocket client, connects with ws backend
 - `react-router-dom` - frontend routing
 - `axios` - for making HTTP requests
 
 Suggested packages:
 
 - UI libraries such as `Chakra-UI`, `Material-UI`, `Reactstrap`, `TailwindCSS` etc.
-- `react-query` - very useful package which handles data fetching logic for you
-- `formik` + `yup` - handling form state and validation
-- `@reduxjs/toolkit` + required packages
-  (react-redux, redux etc.) - library which makes Redux much easier to understand and use
-- `cypress` - for e2e testing
 
 # Development setup
 
@@ -244,10 +234,11 @@ Furthermore, There's success/failure notification _discord_ action that make tea
 
 5.  Run: `heroku stack:set container` so Heroku knows this is a containerized application
 6.  Run: `heroku addons:create heroku-postgresql:hobby-dev` which creates the postgres add-on for Heroku
-7.  Deploy app by running: `git push heroku master/main`,  
+7.  Run: `heroku addons:create heroku-redis:hobby-dev` which creates the redis add-on for Heroku
+8.  Deploy app by running: `git push heroku master/main`,  
     _or_ manually in Heroku dashboard  
     _or_ by pushing to your github repository, having Automatic Deploys set up
-8.  Go to `<app name>.herokuapp.com` to see the published website.
+9.  Go to `<app name>.herokuapp.com` to see the published website.
 
 ### Run commands in Heroku:
 
