@@ -103,9 +103,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+TOKEN_EXPIRED_AFTER_SECONDS = 60 * 60
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+        "users.authentication.ExpiringTokenAuthentication",
     ],
 }
 
