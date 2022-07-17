@@ -9,6 +9,8 @@ omit=
     */migrations/*
     manage.py
     *settings*
+    api/*
+    core/*
 
 [run]
 include = ./*

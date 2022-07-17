@@ -1,4 +1,5 @@
 [tool.isort]
+skip_glob = ["migrations/*"]
 profile = "black"
 
 [tool.black]
