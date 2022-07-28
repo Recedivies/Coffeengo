@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 import AxiosClient from "../api/axiosClient";
-import logo from "../logo.svg";
-import "./App.css";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -17,13 +15,13 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
+      <h1 className="font-bold underline">Hello world!</h1>
+      <header>
         <pre>django-react-heroku-template</pre>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <img src={logo} className="App-logo" alt="logo" />
 
         <div>
           <p>Test connection with API:</p>
