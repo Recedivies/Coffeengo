@@ -16,7 +16,7 @@ class AuthViewSet(viewsets.GenericViewSet):
     POST    api/auth/login             - login user
     POST    api/auth/register          - register user
     POST    api/auth/password_change   - reset password user
-    POST    api/auth/me                - retrieve user
+    GET     api/auth/me                - retrieve user
     """
 
     permission_classes = [
