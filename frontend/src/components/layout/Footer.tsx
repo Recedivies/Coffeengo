@@ -1,5 +1,4 @@
 import clsxm from "../../lib/clsxm";
-import Accent from "../utils/Accent";
 
 const Footer = () => {
   return (
