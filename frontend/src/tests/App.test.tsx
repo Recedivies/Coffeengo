@@ -17,20 +17,13 @@ test("renders App", () => {
 });
 
 describe("<App />", () => {
-  let container: HTMLElement;
-
-  beforeEach(() => {
-    container = render(<App />).container;
-  });
-
   test("clicking Login Button on Home Page", async () => {
+    const { container } = render(<App />);
+
     const user = userEvent.setup();
     const button = getById<HTMLInputElement>(container, "login-home");
-    const mockHandler = jest.fn();
 
     await user.click(button);
-
-    // expect(mockHandler.mock.calls).toHaveLength(1);
 
     expect(screen.getByText("Sign in")).toBeInTheDocument();
   });
