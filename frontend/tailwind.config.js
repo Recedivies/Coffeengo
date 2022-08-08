@@ -36,8 +36,18 @@ module.exports = {
       strokeWidth: {
         0.5: "0.5",
       },
+      keyframes: {
+        logo: {
+          from: { transform: "scale(0.95)" },
+          to: { transform: "scale(1.02)" },
+        },
+      },
+      animation: {
+        "logo-app": "logo infinite 1.5s alternate",
+      },
     },
   },
+
   variants: {
     extend: {},
   },
