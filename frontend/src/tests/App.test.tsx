@@ -1,10 +1,9 @@
+import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 
 import App from "../components/App";
 
-test("renders learn react link", () => {
+test("renders App", () => {
   render(<App />);
-  const linkElement = screen.getByText("django-react-heroku-template");
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getAllByText(/Coffeengo/i)).toBeDefined();
 });

@@ -29,14 +29,28 @@ services:
     ports:
       - 5432:5432
 
+  # pgadmin:
+  #   depends_on:
+  #     - db
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+  #   ports:
+  #     - "5050:80"
+  #   restart: unless-stopped
+  # logging:
+  #   driver: none
+
   frontend:
     image: fe-dev
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
     volumes:
-      - ./frontend/:/usr/src/app
-      - /app/node_modules
+      - ./frontend:/app/frontend
+      - node-modules:/app/frontend/node_modules
     ports:
       - 3000:3000
     container_name: fe-dev
@@ -57,3 +71,4 @@ services:
 
 volumes:
   postgres-data:
+  node-modules:
