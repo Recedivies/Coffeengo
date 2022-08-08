@@ -12,6 +12,13 @@ User = get_user_model()
 
 
 class AuthViewSet(viewsets.GenericViewSet):
+    """
+    POST    api/auth/login             - login user
+    POST    api/auth/register          - register user
+    POST    api/auth/password/change   - change password user
+    GET     api/auth/me                - retrieve user
+    """
+
     permission_classes = [
         permissions.AllowAny,
     ]
@@ -49,7 +56,10 @@ class AuthViewSet(viewsets.GenericViewSet):
         return Response(data=data, status=status.HTTP_200_OK)
 
     @action(
-        methods=["POST"], detail=False, permission_classes=[permissions.IsAuthenticated]
+        methods=["POST"],
+        detail=False,
+        permission_classes=[permissions.IsAuthenticated],
+        url_path="password/change",
     )
     def password_change(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
@@ -59,7 +69,9 @@ class AuthViewSet(viewsets.GenericViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
-        methods=["GET"], detail=False, permission_classes=[permissions.IsAuthenticated]
+        methods=["GET"],
+        detail=False,
+        permission_classes=[permissions.IsAuthenticated],
     )
     def me(self, request: Request) -> Response:
         serializer = self.get_serializer(request.user)

@@ -23,7 +23,7 @@ class ApiUrlsTests(SimpleTestCase):
 
     def test_get_password_change_url(self):
         url = reverse("auth-password-change")
-        self.assertEqual(url, "/api/auth/password_change")
+        self.assertEqual(url, "/api/auth/password/change")
 
     def test_get_user_url(self):
         url = reverse("auth-me")
