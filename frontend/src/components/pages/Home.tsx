@@ -86,10 +86,11 @@ const Home: React.FC = () => {
         ) : (
           <div>
             {[
-              ["Login", "/login"],
-              ["Register", "/register"],
-            ].map(([title, url]) => (
+              ["Login", "/login", "login-home"],
+              ["Register", "/register", "register-home"],
+            ].map(([title, url, id]) => (
               <button
+                id={id}
                 key={title}
                 className={clsxm(
                   "focus:outline-none focus-visible:ring focus-visible:ring-primary-500",
