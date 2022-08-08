@@ -22,6 +22,24 @@
   --clr-primary-500: rgb(var(--tw-clr-primary-500));
   --clr-primary-600: rgb(var(--tw-clr-primary-600));
   --clr-primary-700: rgb(var(--tw-clr-primary-700));
+
+  --primary-blue: rgb(0, 0, 255);
+  --secondary-blue: rgb(96, 96, 182);
+
+  --text-primary-light: black;
+  --text-primary-dark: white;
+
+  --text-secondary-light: rgb(70, 70, 70);
+  --text-secondary-dark: rgb(160, 160, 160);
+
+  --bg-primary-light: #ebf6ff;
+  --bg-primary-dark: black;
+
+  --bg-secondary-light: rgb(212, 212, 212);
+  --bg-secondary-dark: rgb(34, 34, 34);
+
+  --bg-navbar-light: rgb(104, 104, 255);
+  --bg-navbar-dark: rgb(29, 29, 58);
 }
 
 @layer base {
@@ -108,6 +126,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-background);
 }
 
 a {
@@ -117,4 +136,22 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.light-theme {
+  color: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  background-color: var(--bg-primary-light);
+  background: var(--bg-primary-light);
+  --bg-secondary: var(--bg-secondary-light);
+  --bg-navbar: var(--bg-navbar-light);
+}
+
+.dark-theme {
+  color: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  background: #052130;
+  background-color: #052130;
+  --bg-secondary: var(--bg-secondary-dark);
+  --bg-navbar: var(--bg-navbar-dark);
 }
