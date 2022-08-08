@@ -26,7 +26,7 @@ class AuthViewSet(viewsets.GenericViewSet):
     serializer_classes = {
         "login": serializers.UserLoginSerializer,
         "register": serializers.UserRegisterSerializer,
-        "password_change": serializers.PasswordChangeSerializer,
+        "password": serializers.PasswordChangeSerializer,
         "me": serializers.MeSerializer,
     }
 
