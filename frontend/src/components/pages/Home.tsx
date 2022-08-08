@@ -47,18 +47,14 @@ const Home: React.FC = () => {
       className={clsxm("flex flex-grow flex-col items-center justify-center")}
     >
       <div className="spin-slow animate-logo-app">
-        <span>
-          <FiCoffee
-            className={clsxm(
-              "fill-white h-16 w-16 mr-4 mb-6 inline-block",
-              "text-gray-500 hover:text-primary-300 dark:text-gray-200 dark:hover:text-primary-300",
-              "transition-colors",
-            )}
-          />
-        </span>
-        <span className="font-bold md:text-5xl">
-          <Accent>Coffeengo</Accent>
-        </span>
+        <FiCoffee
+          className={clsxm(
+            "fill-white h-16 w-16 mr-4 mb-6 inline-block",
+            "text-gray-500 hover:text-primary-300 dark:text-gray-200 dark:hover:text-primary-300",
+            "transition-colors",
+          )}
+        />
+        <Accent className="font-bold md:text-5xl">Coffeengo</Accent>
       </div>
 
       <div className="m-4">
