@@ -250,4 +250,3 @@ e.g
 heroku run bash --app django-react-heroku-test
 ~ $ python backend/manage.py createsuperuser
 ```
-# test-coffeengo
