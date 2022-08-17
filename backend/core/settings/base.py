@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "core",
     "users",
     "api",
+    "rooms",
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 TOKEN_EXPIRED_AFTER_SECONDS = 60 * 60
 
 REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "utils.exception.custom_exception_handler",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "users.authentication.ExpiringTokenAuthentication",
     ],
