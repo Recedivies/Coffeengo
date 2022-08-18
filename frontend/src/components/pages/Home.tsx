@@ -1,46 +1,27 @@
 import React from "react";
 import { FiCoffee } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { getUser } from "../../api/auth";
 import clsxm from "../../lib/clsxm";
-import { User } from "../../types";
 import Accent from "../utils/Accent";
+import { toastSuccess } from "../utils/Toast";
 
 const Home: React.FC = () => {
-  const [user, setUser] = React.useState<User>({
-    username: "",
-    email: "",
-  });
-
+  const username = localStorage.getItem("username");
+  const isAuthenticated = localStorage.getItem("token");
   const isNotificationActive = localStorage.getItem("notif");
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem("token");
 
   React.useEffect(() => {
     const fetchUser = async (): Promise<void> => {
       const { data } = await getUser();
-      const { username, email } = data;
-      setUser({ username, email });
+      const { username } = data;
+      localStorage.setItem("username", username);
     };
-    fetchUser();
+    if (isAuthenticated) fetchUser();
   }, []);
-
-  if (isNotificationActive && user.username.length !== 0) {
-    if (
-      isNotificationActive === "login" ||
-      isNotificationActive === "register"
-    ) {
-      toast.success(`Welcome, ${user.username}.`);
-    }
-    if (isNotificationActive === "logout") {
-      toast.success(
-        `Goodbye, ${user.username}. Looking forward to seeing you at Coffeengo.`,
-      );
-    }
-    localStorage.removeItem("notif");
-  }
+  toastSuccess(isNotificationActive, username);
 
   return (
     <main
