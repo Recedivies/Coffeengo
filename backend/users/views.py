@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, logout
+from django.contrib.auth import logout
 from django.core.exceptions import ImproperlyConfigured
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
@@ -8,13 +8,12 @@ from rest_framework.response import Response
 from users import serializers
 from users.utils import create_user_account, destroy_token, get_and_authenticate_user
 
-User = get_user_model()
-
 
 class AuthViewSet(viewsets.GenericViewSet):
     """
     POST    api/auth/login             - login user
     POST    api/auth/register          - register user
+    POST    api/auth/logout            - logout user
     POST    api/auth/password/change   - change password user
     GET     api/auth/me                - retrieve user
     """
@@ -29,6 +28,13 @@ class AuthViewSet(viewsets.GenericViewSet):
         "password_change": serializers.PasswordChangeSerializer,
         "me": serializers.MeSerializer,
     }
+
+    def get_serializer_class(self):
+        if not isinstance(self.serializer_classes, dict):
+            raise ImproperlyConfigured("serializer_classes should be a dict mapping.")
+        if self.action in self.serializer_classes.keys():
+            return self.serializer_classes[self.action]
+        return super().get_serializer_class()
 
     @action(methods=["POST"], detail=False)
     def login(self, request: Request) -> Response:
@@ -76,11 +82,3 @@ class AuthViewSet(viewsets.GenericViewSet):
     def me(self, request: Request) -> Response:
         serializer = self.get_serializer(request.user)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-    def get_serializer_class(self):
-        if not isinstance(self.serializer_classes, dict):
-            raise ImproperlyConfigured("serializer_classes should be a dict mapping.")
-
-        if self.action in self.serializer_classes.keys():
-            return self.serializer_classes[self.action]
-        return super().get_serializer_class()

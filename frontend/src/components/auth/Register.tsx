@@ -1,15 +1,18 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import React from "react";
 import { IoIosLock } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 import { onRegister } from "../../api/auth";
 import { useNotifContext } from "../../hooks/useContextHooks";
 import clsxm from "../../lib/clsxm";
+import { WebResponse } from "../../types";
 import Accent from "../utils/Accent";
+import { toastError } from "../utils/Toast";
+import { validateEmail } from "../utils/validateEmail";
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const { toggleNotificataion } = useNotifContext();
 
   const [username, setUsername] = React.useState<string>("");
@@ -27,24 +30,23 @@ const Register: React.FC = () => {
         password2: password2,
       });
       localStorage.setItem("token", data.token);
-
+      localStorage.setItem("username", username);
       toggleNotificataion("register");
-      window.location.reload();
+      setTimeout(() => navigate("/"), 500);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError;
-        if (serverError && serverError.response) {
-          toast.error(
-            JSON.stringify(serverError.response.data)
-              .replace(/]|[[]/g, "")
-              .replace(/[{}]/g, ""),
-          );
-        }
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        console.log(serverError.response.data);
+        toastError(serverError.response.data as WebResponse);
       }
     }
   };
 
   const passwordMatch = () => password1 === password2;
+
+  const validateButton = (): boolean => {
+    return (email !== "" && !validateEmail(email)) || !passwordMatch();
+  };
 
   return (
     <main
@@ -87,6 +89,11 @@ const Register: React.FC = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+          {email !== "" && !validateEmail(email) && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">Invalid email format</span>
+            </p>
+          )}
         </div>
         <div className="mb-3">
           <label className="block mb-2 text-sm font-medium transition-colors">
@@ -126,13 +133,16 @@ const Register: React.FC = () => {
         </div>
         <div className="my-4">
           <button
+            disabled={validateButton() ? true : false}
             className={clsxm(
               "shadow-sm text-sm rounded-lg w-full",
               "border border-primary-50",
-              "hover:bg-primary-500 hover:text-black",
-              "scale-100 transform-gpu hover:scale-[1.03] active:scale-[0.97]",
               "transition duration-300",
-              "font-bold py-2 px-6",
+              "font-bold py-2 px-6 opacity-50 cursor-not-allowed",
+              validateButton()
+                ? "cursor-not-allowed opacity-50"
+                : "cursor-default opacity-100 hover:bg-primary-500 hover:text-black",
+              "scale-100 transform-gpu hover:scale-[1.03] active:scale-[0.97]",
             )}
           >
             SIGN UP

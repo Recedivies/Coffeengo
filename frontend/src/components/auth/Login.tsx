@@ -1,13 +1,14 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import React from "react";
 import { IoIosUnlock } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { onLogin } from "../../api/auth";
 import { useNotifContext } from "../../hooks/useContextHooks";
 import clsxm from "../../lib/clsxm";
+import { WebResponse } from "../../types";
 import Accent from "../utils/Accent";
+import { toastError } from "../utils/Toast";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -24,19 +25,13 @@ const Login: React.FC = () => {
         password: password,
       });
       localStorage.setItem("token", data.token);
-
+      localStorage.setItem("username", username);
       toggleNotificataion("login");
       setTimeout(() => navigate("/"), 500);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError;
-        if (serverError && serverError.response) {
-          toast.error(
-            JSON.stringify(serverError.response.data)
-              .replace(/]|[[]/g, "")
-              .replace(/[{}]/g, ""),
-          );
-        }
+      const serverError = error as AxiosError;
+      if (serverError && serverError.response) {
+        toastError(serverError.response.data as WebResponse);
       }
     }
   };

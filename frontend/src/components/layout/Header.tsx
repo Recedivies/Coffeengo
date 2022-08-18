@@ -5,20 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { onLogout } from "../../api/auth";
 import { useNotifContext } from "../../hooks/useContextHooks";
 import clsxm from "../../lib/clsxm";
+import { Links } from "../../types";
 import Accent from "../utils/Accent";
 import ColorModeToggle from "../utils/ColorModeToggle";
 
-type Links = {
-  href: string;
-  label: string;
-}[];
-
-export const mainLinks: Links = [
+const mainLinks: Links = [
   { href: "/", label: "Home" },
   { href: "/lobby", label: "Lobby" },
 ];
 
-export const authLinks: Links = [
+const authLinks: Links = [
   { href: "/login", label: "Login" },
   { href: "/register", label: "Register" },
 ];
@@ -27,13 +23,13 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const { toggleNotificataion } = useNotifContext();
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     try {
       await onLogout();
       localStorage.removeItem("token");
       toggleNotificataion("logout");
       setTimeout(() => navigate("/"), 500);
-    } catch (err) {
+    } catch (error) {
       // remove token and reload either way;
       // even though user might still be logged on the backend with old creds
       localStorage.removeItem("token");
@@ -106,11 +102,8 @@ const Header: React.FC = () => {
             </div>
           ) : (
             <div>
-              {[
-                ["Login", "/login"],
-                ["Register", "/register"],
-              ].map(([title, url]) => (
-                <Link key={`${title}`} to={url}>
+              {authLinks.map(({ href, label }) => (
+                <Link key={`${href}${label}`} to={href}>
                   <span
                     className={clsxm(
                       "transition",
@@ -119,7 +112,7 @@ const Header: React.FC = () => {
                       "block mt-4 lg:inline-block lg:mt-0 mr-5",
                     )}
                   >
-                    {title}
+                    {label}
                   </span>
                 </Link>
               ))}

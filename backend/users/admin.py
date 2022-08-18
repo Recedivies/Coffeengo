@@ -31,7 +31,7 @@ class UserAdmin(UserAdmin):
         ),
     )
     search_fields = ("username",)
-    ordering = ("username",)
+    ordering = ("date_joined",)
 
 
 admin.site.unregister(Group)

@@ -29,3 +29,14 @@ export type AuthContextProps = {
   login: () => Promise<Response<any>>;
   logout: () => void;
 };
+
+export type Links = {
+  href: string;
+  label: string;
+}[];
+
+export type WebResponse = {
+  message: string;
+  content: string;
+  success: boolean;
+};
