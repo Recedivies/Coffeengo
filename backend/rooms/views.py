@@ -52,6 +52,11 @@ class RoomViewSet(viewsets.ModelViewSet):
             return self.serializer_classes[self.action]
         return super().get_serializer_class()
 
+    def get_permissions(self):
+        if self.action == "create":
+            return [permissions.IsAuthenticated()]
+        return super(RoomViewSet, self).get_permissions()
+
     def list(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response(
